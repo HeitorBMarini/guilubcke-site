@@ -5,118 +5,100 @@ import { useRef } from "react"
 import { Bike, Dumbbell, Target, Users, Shield, Trophy } from "lucide-react"
 
 const servicos = [
-  {
-    icon: Bike,
-    title: "Treinamento de Pilotagem",
-    desc: "Aperfeiçoe sua técnica nas curvas, frenagem, aceleração e posição no guidão. Do básico ao avançado.",
-    tag: "Técnica",
-  },
-  {
-    icon: Dumbbell,
-    title: "Condicionamento Físico",
-    desc: "Programa de treino físico específico para motociclistas: força, resistência, flexibilidade e equilíbrio.",
-    tag: "Físico",
-  },
-  {
-    icon: Target,
-    title: "Mentoria Individual",
-    desc: "Acompanhamento personalizado com análise de performance, metas e evolução contínua.",
-    tag: "1:1",
-  },
-  {
-    icon: Users,
-    title: "Treinos em Grupo",
-    desc: "Sessões coletivas em pista com feedback imediato e aprendizado colaborativo.",
-    tag: "Grupo",
-  },
-  {
-    icon: Shield,
-    title: "Pilotagem Defensiva",
-    desc: "Técnicas de segurança, leitura de pista e tomada de decisão para reduzir riscos.",
-    tag: "Segurança",
-  },
-  {
-    icon: Trophy,
-    title: "Preparação para Competição",
-    desc: "Treinamento intensivo focado em resultados para pilotos que querem competir.",
-    tag: "Competição",
-  },
+  { icon: Bike, num: "01", title: "Pilotagem", tag: "Técnica", desc: "Aperfeiçoe curvas, frenagem e posição. Do básico ao avançado." },
+  { icon: Dumbbell, num: "02", title: "Condicionamento", tag: "Físico", desc: "Força, resistência e flexibilidade específicos para motociclistas." },
+  { icon: Target, num: "03", title: "Mentoria 1:1", tag: "Individual", desc: "Acompanhamento com análise de performance e metas personalizadas." },
+  { icon: Users, num: "04", title: "Treino em Grupo", tag: "Coletivo", desc: "Sessões em pista com feedback imediato e aprendizado colaborativo." },
+  { icon: Shield, num: "05", title: "Pilotagem Defensiva", tag: "Segurança", desc: "Leitura de pista e tomada de decisão para reduzir riscos." },
+  { icon: Trophy, num: "06", title: "Prep. Competição", tag: "Elite", desc: "Treinamento intensivo para pilotos que querem competir." },
 ]
 
 export default function Servicos() {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: "-80px" })
+  const inView = useInView(ref, { once: true, margin: "-60px" })
 
   return (
-    <section id="servicos" ref={ref} className="py-24 lg:py-36 bg-[#0d0d0d] relative">
-      {/* Linha laranja no topo */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent" />
+    <section id="servicos" ref={ref} className="py-28 lg:py-40 bg-[#111] relative">
+      <div className="absolute top-0 left-0 right-0 h-px bg-white/5" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="mb-16 lg:mb-20"
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-px bg-orange-500" />
-            <span
-              className="text-orange-400 text-xs font-bold tracking-[0.3em] uppercase"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
-              O que ofereço
-            </span>
-          </div>
-          <h2
-            className="text-5xl lg:text-6xl font-black text-white uppercase leading-[1.0] max-w-xl"
-            style={{ fontFamily: "var(--font-display)" }}
+      <div className="max-w-screen-xl mx-auto px-6 lg:px-14">
+        {/* Header row */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16 lg:mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5 }}
           >
-            Serviços
-            <span className="text-orange-500 block">Especializados</span>
-          </h2>
-        </motion.div>
+            <div className="flex items-center gap-4 mb-5">
+              <span className="text-red-600 text-[10px] font-black tracking-[0.3em] uppercase">03</span>
+              <div className="w-12 h-px bg-red-600" />
+              <span className="text-white/30 text-[10px] font-bold tracking-[0.3em] uppercase">Serviços</span>
+            </div>
+            <h2
+              className="text-[4rem] lg:text-[5.5rem] font-black text-white uppercase leading-[0.88]"
+              style={{ fontFamily: "var(--font-family-display, 'Barlow Condensed', sans-serif)" }}
+            >
+              O que
+              <br />
+              ofereço<span className="text-red-600"> //</span>
+            </h2>
+          </motion.div>
 
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-white/35 text-sm leading-relaxed max-w-xs lg:text-right"
+          >
+            Cada serviço é desenhado para extrair o melhor de você — na pista e fora dela.
+          </motion.p>
+        </div>
+
+        {/* Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5">
           {servicos.map((s, i) => {
             const Icon = s.icon
             return (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: i * 0.08, duration: 0.5 }}
-                className="group bg-[#0d0d0d] p-8 lg:p-10 hover:bg-[#141414] transition-colors duration-300 relative overflow-hidden"
+                transition={{ delay: i * 0.07, duration: 0.5 }}
+                className="group relative bg-[#111] p-8 lg:p-10 hover:bg-[#161616] transition-colors duration-300 overflow-hidden cursor-default"
               >
-                {/* Hover accent */}
-                <div className="absolute top-0 left-0 w-full h-px bg-orange-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                {/* Top reveal line on hover */}
+                <div className="absolute top-0 left-0 w-0 group-hover:w-full h-[2px] bg-red-600 transition-all duration-500" />
 
-                <div className="flex items-start justify-between mb-6">
-                  <div className="w-12 h-12 bg-orange-500/10 border border-orange-500/20 flex items-center justify-center group-hover:bg-orange-500/20 transition-colors">
-                    <Icon size={22} className="text-orange-400" />
-                  </div>
+                <div className="flex items-start justify-between mb-8">
                   <span
-                    className="text-xs text-orange-500/60 font-bold tracking-widest uppercase border border-orange-500/20 px-2 py-1"
-                    style={{ fontFamily: "var(--font-display)" }}
+                    className="text-5xl font-black text-white/6 leading-none group-hover:text-white/10 transition-colors"
+                    style={{ fontFamily: "var(--font-family-display, 'Barlow Condensed', sans-serif)" }}
                   >
+                    {s.num}
+                  </span>
+                  <span className="text-[9px] font-black tracking-[0.25em] uppercase text-red-600/50 border border-red-600/20 px-2 py-1">
                     {s.tag}
                   </span>
                 </div>
 
+                <div className="w-8 h-8 mb-5 flex items-center justify-center text-red-600/70 group-hover:text-red-600 transition-colors">
+                  <Icon size={20} strokeWidth={1.5} />
+                </div>
+
                 <h3
-                  className="text-xl font-black text-white uppercase mb-3 group-hover:text-orange-400 transition-colors"
-                  style={{ fontFamily: "var(--font-display)" }}
+                  className="text-xl font-black text-white uppercase mb-3 group-hover:text-red-500 transition-colors duration-300"
+                  style={{ fontFamily: "var(--font-family-display, 'Barlow Condensed', sans-serif)" }}
                 >
-                  {s.title}
+                  {s.title} <span className="text-red-600 opacity-0 group-hover:opacity-100 transition-opacity">//</span>
                 </h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{s.desc}</p>
+                <p className="text-white/35 text-sm leading-relaxed">{s.desc}</p>
               </motion.div>
             )
           })}
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-white/5" />
     </section>
   )
 }

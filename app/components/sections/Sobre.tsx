@@ -2,112 +2,116 @@
 
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
-import { CheckCircle2 } from "lucide-react"
-
-const diferenciais = [
-  "Metodologia exclusiva para motociclistas",
-  "Treinamento físico e técnico integrado",
-  "Acompanhamento personalizado",
-  "Foco em segurança e performance",
-  "Experiência comprovada nas pistas",
-  "Atendimento individual e em grupos",
-]
 
 export default function Sobre() {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: "-80px" })
+  const inView = useInView(ref, { once: true, margin: "-60px" })
 
   return (
-    <section id="sobre" ref={ref} className="py-24 lg:py-36 bg-[#0a0a0a] relative overflow-hidden">
-      <div className="absolute left-0 top-0 bottom-0 w-1 bg-orange-500/30" />
-
-      {/* Grid decorativo */}
+    <section id="sobre" ref={ref} className="py-28 lg:py-40 bg-[#0e0e0e] relative overflow-hidden">
+      {/* Large background number */}
       <div
-        className="absolute inset-0 opacity-[0.02]"
-        style={{
-          backgroundImage: "linear-gradient(rgba(255,255,255,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.5) 1px,transparent 1px)",
-          backgroundSize: "80px 80px",
-        }}
-      />
+        className="absolute right-0 top-1/2 -translate-y-1/2 text-[20rem] font-black text-white/[0.02] leading-none select-none pointer-events-none pr-8 hidden lg:block"
+        style={{ fontFamily: "var(--font-family-display, 'Barlow Condensed', sans-serif)" }}
+      >
+        GL
+      </div>
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+      <div className="max-w-screen-xl mx-auto px-6 lg:px-14 relative z-10">
+        {/* Section label */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+          className="flex items-center gap-4 mb-16"
+        >
+          <span className="text-red-600 text-[10px] font-black tracking-[0.3em] uppercase">02</span>
+          <div className="w-12 h-px bg-red-600" />
+          <span className="text-white/30 text-[10px] font-bold tracking-[0.3em] uppercase">Quem sou</span>
+        </motion.div>
 
-          {/* Imagem */}
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+          {/* Left: big heading + image */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7 }}
-            className="relative"
+            initial={{ opacity: 0, y: 40 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
           >
-            <div className="relative aspect-[3/4] lg:aspect-[4/5] overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=800&q=80"
-                alt="Gui Lubcke"
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              {/* Borda laranja */}
-              <div className="absolute top-4 left-4 right-4 bottom-4 border border-orange-500/30 pointer-events-none" />
-            </div>
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="absolute -bottom-5 -right-5 lg:-right-8 bg-orange-500 text-black px-6 py-5 shadow-2xl shadow-orange-900/50"
-            >
-              <div className="text-3xl font-black leading-none" style={{ fontFamily: "var(--font-display)" }}>10+</div>
-              <div className="text-black/70 text-xs mt-1 font-semibold uppercase tracking-wider">Anos de experiência</div>
-            </motion.div>
-          </motion.div>
-
-          {/* Texto */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7 }}
-            className="pt-8 lg:pt-0"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-px bg-orange-500" />
-              <span
-                className="text-orange-400 text-xs font-bold tracking-[0.3em] uppercase"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                Quem sou
-              </span>
-            </div>
-
             <h2
-              className="text-5xl lg:text-6xl font-black text-white uppercase leading-[1.0] mb-8"
-              style={{ fontFamily: "var(--font-display)" }}
+              className="text-[5rem] lg:text-[7rem] xl:text-[8rem] font-black text-white uppercase leading-[0.85] tracking-tight mb-10"
+              style={{ fontFamily: "var(--font-family-display, 'Barlow Condensed', sans-serif)" }}
             >
               Guilherme
-              <span className="text-orange-500 block">Lubcke</span>
+              <br />
+              Lubcke<span className="text-red-600"> //</span>
             </h2>
 
-            <p className="text-gray-400 leading-relaxed mb-5 text-base lg:text-[1.05rem]">
-              Sou treinador especializado em motociclismo, com mais de 10 anos dedicados a transformar motociclistas em pilotos mais seguros, rápidos e confiantes.
+            {/* Photo */}
+            <div className="relative aspect-[4/3] overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80"
+                alt="Gui Lubcke"
+                className="w-full h-full object-cover grayscale"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e0e]/80 via-transparent to-transparent" />
+              {/* Badge */}
+              <div className="absolute bottom-0 left-0 p-6">
+                <div
+                  className="text-6xl font-black text-white leading-none"
+                  style={{ fontFamily: "var(--font-family-display, 'Barlow Condensed', sans-serif)" }}
+                >
+                  10<span className="text-red-600">+</span>
+                </div>
+                <div className="text-xs text-white/50 uppercase tracking-widest mt-1">Anos de Experiência</div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Right: text content */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="lg:pt-28"
+          >
+            <p className="text-white/60 text-lg leading-relaxed mb-6">
+              Sou preparador físico especializado em motociclismo e esportes de performance, com mais de 10 anos transformando atletas em versões mais rápidas e resilientes de si mesmos.
             </p>
-            <p className="text-gray-400 leading-relaxed mb-10 text-base lg:text-[1.05rem]">
-              Desenvolvi uma metodologia exclusiva que une treinamento físico, técnica de pilotagem e mentalidade competitiva — tudo adaptado ao nível e objetivo de cada aluno.
+            <p className="text-white/40 text-base leading-relaxed mb-12">
+              Desenvolvi uma metodologia exclusiva que une condicionamento físico, mentalidade esportiva e técnica de pilotagem — tudo adaptado ao nível e objetivo de cada aluno.
             </p>
 
-            <div className="grid sm:grid-cols-2 gap-3">
-              {diferenciais.map((item, i) => (
-                <motion.div
+            {/* Key points */}
+            <div className="flex flex-col gap-0 border-t border-white/5">
+              {[
+                "Metodologia exclusiva para motociclistas",
+                "Acompanhamento 100% personalizado",
+                "Foco em segurança e alta performance",
+                "Resultado comprovado em pista",
+              ].map((item, i) => (
+                <div
                   key={i}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.2 + i * 0.07, duration: 0.4 }}
-                  className="flex items-start gap-3 bg-white/[0.03] border border-white/5 rounded-sm px-4 py-3.5 hover:border-orange-500/30 transition-colors"
+                  className="flex items-center gap-5 py-4 border-b border-white/5 group hover:border-red-600/30 transition-colors"
                 >
-                  <CheckCircle2 size={16} className="text-orange-500 mt-0.5 shrink-0" />
-                  <span className="text-sm text-gray-300 leading-snug">{item}</span>
-                </motion.div>
+                  <span
+                    className="text-red-600 font-black text-sm shrink-0"
+                    style={{ fontFamily: "var(--font-family-display, 'Barlow Condensed', sans-serif)" }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-white/60 text-sm group-hover:text-white/90 transition-colors">{item}</span>
+                </div>
               ))}
             </div>
+
+            {/* CTA */}
+            <a
+              href="#contato"
+              className="inline-flex items-center gap-3 mt-10 text-xs font-black tracking-[0.25em] uppercase text-white/50 hover:text-white group transition-colors"
+            >
+              <span className="w-8 h-px bg-red-600 group-hover:w-14 transition-all duration-300" />
+              Falar com o Gui
+            </a>
           </motion.div>
         </div>
       </div>

@@ -1,119 +1,155 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowRight, ChevronDown, Play } from "lucide-react"
+import { ArrowRight } from "lucide-react"
+
+const stats = [
+  { num: "+10", label: "Anos como\nCoach" },
+  { num: "+887", label: "Seguidores\nno Instagram" },
+  { num: "100%", label: "Atendimento\nPersonalizado" },
+]
 
 export default function Hero() {
   return (
-    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-black">
-      {/* Background */}
+    <section
+      id="hero"
+      className="relative min-h-screen flex flex-col bg-[#0e0e0e] overflow-hidden noise-overlay"
+    >
+      {/* Subtle center glow where the image is */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_65%_80%_at_58%_52%,#1c1c1c_0%,transparent_70%)] pointer-events-none" />
+
+      {/* Hero image — floating, masked at edges */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 lg:left-[35%] lg:right-[-5%]"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=1920&q=80')",
+          maskImage:
+            "radial-gradient(ellipse 85% 95% at 55% 50%, black 30%, transparent 80%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 85% 95% at 55% 50%, black 30%, transparent 80%)",
         }}
-      />
-      {/* Overlay gradientes */}
-      <div className="absolute inset-0 bg-black/70" />
-      <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/70 to-black/20" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40" />
+      >
+        <img
+          src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=1400&q=80"
+          alt=""
+          className="w-full h-full object-cover object-center"
+        />
+        {/* Darken image to match Caliber tone */}
+        <div className="absolute inset-0 bg-black/40" />
+      </div>
 
-      {/* Linha laranja lateral */}
-      <div className="absolute left-0 top-0 bottom-0 w-1 bg-orange-500" />
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#0e0e0e] to-transparent pointer-events-none" />
 
-      {/* Detalhe geométrico */}
-      <div className="absolute top-1/3 right-16 lg:right-32 w-px h-48 bg-orange-500/30 hidden lg:block" />
-      <div className="absolute top-1/3 right-20 lg:right-36 w-px h-32 bg-white/10 hidden lg:block" />
+      {/* Left edge red line */}
+      <div className="absolute left-0 top-[20%] bottom-[20%] w-[3px] bg-red-600 hidden lg:block" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-8 sm:px-12 lg:px-20 pt-28 pb-24 w-full">
+      {/* Main layout */}
+      <div className="relative z-10 flex-1 flex flex-col max-w-screen-xl mx-auto w-full px-6 lg:px-14">
+        <div className="flex-1 flex items-center">
+          <div className="w-full grid grid-cols-12 items-center gap-4 pt-20 lg:pt-0">
+
+            {/* LEFT: content */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              className="col-span-12 lg:col-span-5"
+            >
+              {/* Tag */}
+              <div className="inline-flex items-center gap-2.5 border border-white/10 px-3 py-1.5 mb-8">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-600 shrink-0" />
+                <span className="text-[10px] font-bold tracking-[0.28em] uppercase text-white/50">
+                  Preparador Físico & Coach
+                </span>
+              </div>
+
+              {/* Heading */}
+              <h1
+                className="text-[4.5rem] sm:text-[6rem] lg:text-[7.5rem] xl:text-[8.5rem] font-black text-white uppercase leading-[0.86] tracking-tight mb-10"
+                style={{ fontFamily: "var(--font-family-display, 'Barlow Condensed', sans-serif)" }}
+              >
+                Eleve
+                <br />
+                seu
+                <br />
+                desemp.
+                <span className="text-red-600"> //</span>
+              </h1>
+
+              {/* CTA */}
+              <motion.a
+                href="#contato"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+                className="inline-flex items-center gap-3 text-xs font-black tracking-[0.25em] uppercase text-white/60 hover:text-white group transition-colors duration-200"
+              >
+                <span className="w-10 h-px bg-red-600 group-hover:w-16 transition-all duration-300" />
+                Agendar treino
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </motion.a>
+            </motion.div>
+
+            {/* CENTER: empty space for image (image is absolutely positioned) */}
+            <div className="col-span-12 lg:col-span-5 h-[300px] lg:h-0" />
+
+            {/* RIGHT: stats */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+              className="col-span-12 lg:col-span-2 flex flex-row lg:flex-col gap-6 lg:gap-8"
+            >
+              {stats.map((s, i) => (
+                <div key={i} className="shrink-0">
+                  <div
+                    className="text-3xl lg:text-4xl font-black text-white leading-none mb-1.5"
+                    style={{ fontFamily: "var(--font-family-display, 'Barlow Condensed', sans-serif)" }}
+                  >
+                    {s.num}
+                    <span className="text-red-600 text-2xl"> //</span>
+                  </div>
+                  <div className="text-[10px] text-white/35 uppercase tracking-widest leading-snug whitespace-pre-line">
+                    {s.label}
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Bottom: slide indicator */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="max-w-3xl"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+          className="pb-10 flex items-center gap-4"
         >
-          {/* Tag */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="flex items-center gap-3 mb-8"
+          <span
+            className="text-5xl font-black text-white/8 leading-none"
+            style={{ fontFamily: "var(--font-family-display, 'Barlow Condensed', sans-serif)" }}
           >
-            <div className="w-8 h-px bg-orange-500" />
-            <span
-              className="text-orange-400 text-xs font-bold tracking-[0.3em] uppercase"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
-              Treinador de Motociclismo
-            </span>
-          </motion.div>
+            01
+          </span>
+          <div className="flex flex-col gap-0.5">
+            <div className="w-px h-4 bg-white/20 mx-auto" />
+          </div>
+          <span className="text-[10px] text-white/25 uppercase tracking-widest">/ 03</span>
 
-          {/* Heading */}
-          <h1
-            className="text-6xl sm:text-7xl lg:text-[7rem] font-black text-white uppercase leading-[0.95] tracking-tight mb-8"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
-            Acelere seu
-            <span className="text-orange-500 block">Desempenho.</span>
-          </h1>
-
-          <p className="text-gray-400 text-base lg:text-lg leading-relaxed mb-10 max-w-xl">
-            Treinamento especializado para motociclistas. Técnica, condicionamento físico e mentalidade para você ir mais longe — com segurança e confiança.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4">
-            <a
-              href="#contato"
-              className="inline-flex items-center justify-center gap-2.5 bg-orange-500 hover:bg-orange-600 text-black font-bold text-sm tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:scale-105 active:scale-95"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
-              Começar agora <ArrowRight size={16} />
-            </a>
+          <div className="ml-auto flex items-center gap-3">
             <a
               href="#sobre"
-              className="inline-flex items-center justify-center gap-2.5 border border-white/20 text-white/80 hover:text-white hover:border-white/50 font-bold text-sm tracking-widest uppercase px-8 py-4 transition-all duration-200"
-              style={{ fontFamily: "var(--font-display)" }}
+              className="text-[10px] text-white/30 uppercase tracking-[0.25em] hover:text-white/60 transition-colors flex items-center gap-2"
             >
-              <Play size={14} /> Conhecer mais
+              Scroll
+              <span className="block w-6 h-px bg-white/20" />
             </a>
           </div>
-
-          {/* Stats rápidos */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.5 }}
-            className="flex gap-10 mt-16 pt-10 border-t border-white/10"
-          >
-            {[
-              { value: "500+", label: "Alunos treinados" },
-              { value: "10+", label: "Anos de experiência" },
-              { value: "100%", label: "Dedicação" },
-            ].map((s) => (
-              <div key={s.label}>
-                <div
-                  className="text-3xl font-black text-orange-500"
-                  style={{ fontFamily: "var(--font-display)" }}
-                >
-                  {s.value}
-                </div>
-                <div className="text-xs text-gray-500 uppercase tracking-widest mt-1">{s.label}</div>
-              </div>
-            ))}
-          </motion.div>
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.a
-        href="#sobre"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 group"
-        animate={{ y: [0, 6, 0] }}
-        transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-      >
-        <span className="text-white/30 text-[10px] tracking-[0.25em] uppercase group-hover:text-orange-400 transition-colors">Scroll</span>
-        <ChevronDown size={18} className="text-white/30 group-hover:text-orange-400 transition-colors" />
-      </motion.a>
+      {/* Bottom red progress line */}
+      <div className="absolute bottom-0 left-0 w-[35%] h-[3px] bg-red-600" />
     </section>
   )
 }

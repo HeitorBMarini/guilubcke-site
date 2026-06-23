@@ -1,105 +1,132 @@
 "use client"
 
 import { motion, useInView } from "framer-motion"
-import { useRef } from "react"
-import { Star } from "lucide-react"
+import { useRef, useState } from "react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
 const depoimentos = [
-  {
-    nome: "Carlos M.",
-    cargo: "Piloto amador",
-    texto: "O Gui mudou completamente minha relação com a moto. Em 3 meses de treino, minha confiança nas curvas dobrou. A metodologia dele é diferente de tudo que já vi.",
-    estrelas: 5,
-  },
-  {
-    nome: "Rafael S.",
-    cargo: "Motociclista recreativo",
-    texto: "Comecei do zero e hoje me sinto muito mais seguro nas estradas. O treinamento físico junto com a técnica de pilotagem fez toda a diferença.",
-    estrelas: 5,
-  },
-  {
-    nome: "André P.",
-    cargo: "Piloto de enduro",
-    texto: "Preparação impecável para a temporada. O Gui entende profundamente as necessidades de cada piloto. Recomendo a todos que querem evoluir.",
-    estrelas: 5,
-  },
-  {
-    nome: "Lucas T.",
-    cargo: "Piloto de trilha",
-    texto: "Fiz o treinamento de pilotagem defensiva e foi um divisor de águas. Aprendi a ler a pista e tomar decisões muito mais rápidas e seguras.",
-    estrelas: 5,
-  },
+  { nome: "Carlos M.", cargo: "Piloto Amador", texto: "O Gui mudou completamente minha relação com a moto. Em 3 meses minha confiança nas curvas dobrou. A metodologia dele é diferente de tudo que já vi." },
+  { nome: "Rafael S.", cargo: "Motociclista Recreativo", texto: "Comecei do zero e hoje me sinto muito mais seguro nas estradas. O treinamento físico junto com a técnica de pilotagem fez toda a diferença." },
+  { nome: "André P.", cargo: "Piloto de Enduro", texto: "Preparação impecável para a temporada. O Gui entende profundamente as necessidades de cada piloto. Recomendo a todos que querem evoluir." },
+  { nome: "Lucas T.", cargo: "Piloto de Trilha", texto: "Fiz o treinamento de pilotagem defensiva e foi um divisor de águas. Aprendi a ler a pista e tomar decisões muito mais rápidas e seguras." },
 ]
 
 export default function Depoimentos() {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: "-80px" })
+  const inView = useInView(ref, { once: true, margin: "-60px" })
+  const [current, setCurrent] = useState(0)
+
+  const prev = () => setCurrent((c) => (c === 0 ? depoimentos.length - 1 : c - 1))
+  const next = () => setCurrent((c) => (c === depoimentos.length - 1 ? 0 : c + 1))
+  const d = depoimentos[current]
 
   return (
-    <section id="depoimentos" ref={ref} className="py-24 lg:py-36 bg-[#0d0d0d] relative">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent" />
+    <section id="depoimentos" ref={ref} className="py-28 lg:py-40 bg-[#111] relative overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 h-px bg-white/5" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      {/* Large quote mark */}
+      <div
+        className="absolute left-8 lg:left-14 top-16 text-[12rem] font-black text-white/[0.025] leading-none select-none pointer-events-none"
+        style={{ fontFamily: "var(--font-family-display, 'Barlow Condensed', sans-serif)" }}
+      >
+        "
+      </div>
+
+      <div className="max-w-screen-xl mx-auto px-6 lg:px-14 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="mb-16 lg:mb-20"
+          transition={{ duration: 0.5 }}
+          className="flex items-center gap-4 mb-16"
         >
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-px bg-orange-500" />
-            <span
-              className="text-orange-400 text-xs font-bold tracking-[0.3em] uppercase"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
-              Resultados reais
-            </span>
-          </div>
-          <h2
-            className="text-5xl lg:text-6xl font-black text-white uppercase leading-[1.0]"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
-            O que dizem
-            <span className="text-orange-500 block">meus alunos</span>
-          </h2>
+          <span className="text-red-600 text-[10px] font-black tracking-[0.3em] uppercase">05</span>
+          <div className="w-12 h-px bg-red-600" />
+          <span className="text-white/30 text-[10px] font-bold tracking-[0.3em] uppercase">Depoimentos</span>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 gap-px bg-white/5">
-          {depoimentos.map((d, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="bg-[#0d0d0d] hover:bg-[#141414] transition-colors duration-300 p-8 lg:p-10 group"
+        <div className="grid lg:grid-cols-5 gap-12 lg:gap-20 items-center">
+          {/* Left: heading */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-2"
+          >
+            <h2
+              className="text-[4.5rem] lg:text-[5.5rem] font-black text-white uppercase leading-[0.86]"
+              style={{ fontFamily: "var(--font-family-display, 'Barlow Condensed', sans-serif)" }}
             >
-              {/* Estrelas */}
-              <div className="flex gap-1 mb-6">
-                {Array.from({ length: d.estrelas }).map((_, j) => (
-                  <Star key={j} size={14} className="text-orange-500 fill-orange-500" />
-                ))}
-              </div>
+              O que
+              <br />
+              dizem<span className="text-red-600"> //</span>
+            </h2>
 
-              <p className="text-gray-300 text-base leading-relaxed mb-8 italic">"{d.texto}"</p>
+            {/* Navigation */}
+            <div className="flex items-center gap-4 mt-12">
+              <button
+                onClick={prev}
+                className="w-10 h-10 border border-white/10 hover:border-red-600 flex items-center justify-center text-white/40 hover:text-red-500 transition-all duration-200"
+              >
+                <ChevronLeft size={16} />
+              </button>
+              <span className="text-white/20 text-sm">
+                <span className="text-white/60 font-bold">{String(current + 1).padStart(2, "0")}</span>
+                {" "}/ {String(depoimentos.length).padStart(2, "0")}
+              </span>
+              <button
+                onClick={next}
+                className="w-10 h-10 border border-white/10 hover:border-red-600 flex items-center justify-center text-white/40 hover:text-red-500 transition-all duration-200"
+              >
+                <ChevronRight size={16} />
+              </button>
+            </div>
+          </motion.div>
 
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-orange-500/10 border border-orange-500/30 flex items-center justify-center">
-                  <span
-                    className="text-orange-500 font-black text-sm"
-                    style={{ fontFamily: "var(--font-display)" }}
-                  >
-                    {d.nome[0]}
-                  </span>
-                </div>
-                <div>
-                  <div className="text-white font-bold text-sm">{d.nome}</div>
-                  <div className="text-gray-600 text-xs uppercase tracking-wider">{d.cargo}</div>
-                </div>
+          {/* Right: quote */}
+          <motion.div
+            key={current}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4 }}
+            className="lg:col-span-3"
+          >
+            <p className="text-white/70 text-xl lg:text-2xl leading-relaxed mb-10 font-light">
+              "{d.texto}"
+            </p>
+
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 bg-red-600 flex items-center justify-center shrink-0">
+                <span
+                  className="text-white font-black text-sm"
+                  style={{ fontFamily: "var(--font-family-display, 'Barlow Condensed', sans-serif)" }}
+                >
+                  {d.nome[0]}
+                </span>
               </div>
-            </motion.div>
+              <div>
+                <div className="text-white font-bold text-sm">{d.nome}</div>
+                <div className="text-white/30 text-xs uppercase tracking-wider">{d.cargo}</div>
+              </div>
+              <div className="ml-auto text-red-600 font-black text-2xl" style={{ fontFamily: "var(--font-family-display, 'Barlow Condensed', sans-serif)" }}>
+                //
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Dots */}
+        <div className="flex gap-2 mt-12">
+          {depoimentos.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              className={`h-[2px] transition-all duration-300 ${i === current ? "bg-red-600 w-8" : "bg-white/15 w-4 hover:bg-white/30"}`}
+            />
           ))}
         </div>
       </div>
+
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-white/5" />
     </section>
   )
 }
